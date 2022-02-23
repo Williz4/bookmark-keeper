@@ -8,6 +8,8 @@ const websiteNameEl = document.getElementById('website-name');
 const websiteUrlEl = document.getElementById('website-url');
 const bookmarksContainer = document.getElementById('bookmarks-container');
 
+let bookmarks = [];
+
 //Show Modal, Focus on 1st input of Modal
 function showModal() {
 	modal.classList.add('show-modal');
@@ -36,6 +38,24 @@ function validate(nameValue, urlValue) {
 	return true;
 }
 
+//Fetch bookmarks from localStorage
+function fetchBookmarks() {
+	//Get bookmarks from localStorage if available
+	if(localStorage.getItem('bookmarks')) {
+		bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+	}
+	else {
+		//Create bookmarks array in localStorage
+		bookmarks = [{
+			name: 'Natours',
+			url: 'https://williz4.github.io/natours/',
+		},
+		];
+		localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+	}
+	console.log(bookmarks);
+}
+
 //Store bookmark function
 function storeBookmark(e) {
 	e.preventDefault();
@@ -46,15 +66,25 @@ function storeBookmark(e) {
 		urlValue = `https://${urlValue}`;
 	}
 
-	console.log(nameValue, urlValue);
-
 	if(!validate(nameValue, urlValue)) {
 		return false;
 	}
 
-	websiteNameEl.value = '';
-	websiteUrlEl.value = '';
+	const bookmark = {
+		name: nameValue,
+		url: urlValue,
+	};
+
+	bookmarks.push(bookmark);
+	console.log(bookmarks);
+	localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+	fetchBookmarks();
+	bookmarkForm.reset();
+	websiteNameEl.focus();
 }
 
 //Form Event Listener
 bookmarkForm.addEventListener('submit', storeBookmark);
+
+//On Load, Fetch Bookmarks
+fetchBookmarks();
