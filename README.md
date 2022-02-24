@@ -9,7 +9,7 @@
 The custom Bookmark keeper is an app that enables you to add your favorite bookmarks and keep track of them. By default there's only one bookmark already preset in the localStorage when you first visit the site. You can choose to remove it and add your own bookmarks that'll be saved using localStorage enabling you to be able to view the bookmarks you have saved each time you visit the site.
 
 ## How To Interact with the Application
-* The site is located at the url 
+* The site is located at the url https://williz4.github.io/bookmark-keeper/
 
 ![Index Page](images/1.PNG)
 
